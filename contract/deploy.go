@@ -182,19 +182,18 @@ func generateSmartContract(baseURL, deployerDid, wasmPath, libPath, statePath st
 func deploySmartContract(baseURL, contractHash, deployerDid string) (string, error) {
 	// Create request body
 	requestBody := struct {
-		Comment            string `json:"comment"`
-		DeployerAddr       string `json:"deployerAddr"`
-		QuorumType         int    `json:"quorumType"`
-		RbtAmount          int    `json:"rbtAmount"`
-		SmartContractToken string `json:"smartContractToken"`
+		Comment            string  `json:"comment"`
+		DeployerAddr       string  `json:"deployerAddr"`
+		QuorumType         int     `json:"quorumType"`
+		RbtAmount          float64 `json:"rbtAmount"`
+		SmartContractToken string  `json:"smartContractToken"`
 	}{
 		Comment:            "Contract deployment",
 		DeployerAddr:       deployerDid,
 		QuorumType:         2,
-		RbtAmount:          1,
+		RbtAmount:          0.001,
 		SmartContractToken: contractHash,
 	}
-
 
 	// Marshal request body
 	bodyBytes, err := json.Marshal(requestBody)
@@ -407,7 +406,6 @@ func isValidContractDir(dir string) bool {
 // 	if !apiResp.Status {
 // 		return fmt.Errorf(apiResp.Message)
 // 	}
-
 
 // 	fmt.Println("Callback URL %v for contract %v registered successfully", callbackURL)
 // 	return nil
