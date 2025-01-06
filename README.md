@@ -63,13 +63,13 @@ A Cargo project will be generated under the `<contract-name>`. A template `src/l
 DIDs can be created (and eventually register) using the following command:
 
 ```
-rubix-nexus create did
+rubix-nexus did create
 ```
 
 If you are connected to a localnet and want to use test RBT tokens, run the following:
 
 ```
-rubix-nexus create did --localnet
+rubix-nexus did create --localnet
 ```
 
 4. Deploy the contract
