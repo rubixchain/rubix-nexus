@@ -48,6 +48,7 @@ func cmdDeploy() *cobra.Command {
 	var (
 		contractDir      string
 		deployerDid      string
+		deployAmt        float64
 	)
 
 	cmd := &cobra.Command{
@@ -76,7 +77,7 @@ func cmdDeploy() *cobra.Command {
 				}
 			}
 
-			result, err := contract.Deploy(contractDir, flagHomeDir, deployerDid, onStage)
+			result, err := contract.Deploy(contractDir, flagHomeDir, deployerDid, deployAmt, onStage)
 			if err != nil {
 				fmt.Fprintf(cmd.ErrOrStderr(), "Error: deployment failed: %v\n", err)
 				return nil
@@ -93,6 +94,7 @@ func cmdDeploy() *cobra.Command {
 
 	cmd.Flags().StringVar(&contractDir, "contract-dir", "", "Directory containing the Rust contract project")
 	cmd.Flags().StringVar(&deployerDid, "deployer-did", "", "Contract Deployer DID")
+	cmd.Flags().Float64Var(&deployAmt, "deploy-amt", 0.001, "RBT amount to deploy the contract")
 	cmd.SilenceUsage = true
 	return cmd
 }
