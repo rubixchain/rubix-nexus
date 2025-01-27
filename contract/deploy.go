@@ -19,7 +19,7 @@ import (
 )
 
 // Deploy handles the contract deployment process
-func Deploy(contractDir string, homeDir string, deployerDid string, onStage StageCallback) (*DeploymentResult, error) {
+func Deploy(contractDir string, homeDir string, deployerDid string, deployAmt float64, onStage StageCallback) (*DeploymentResult, error) {
 	// Load config to get API URL
 	cfg, err := config.LoadConfig(homeDir)
 	if err != nil {
@@ -66,7 +66,7 @@ func Deploy(contractDir string, homeDir string, deployerDid string, onStage Stag
 	onStage(StageDeploy)
 
 	// Call deploy-smart-contract API
-	requestID, err := deploySmartContract(cfg.Network.DeployerNodeURL, contractHash, deployerDid)
+	requestID, err := deploySmartContract(cfg.Network.DeployerNodeURL, contractHash, deployerDid, deployAmt)
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy smart contract: %w", err)
 	}
@@ -179,7 +179,7 @@ func generateSmartContract(baseURL, deployerDid, wasmPath, libPath, statePath st
 	return apiResp.Result, nil
 }
 
-func deploySmartContract(baseURL, contractHash, deployerDid string) (string, error) {
+func deploySmartContract(baseURL, contractHash, deployerDid string, deployAmt float64) (string, error) {
 	// Create request body
 	requestBody := struct {
 		Comment            string  `json:"comment"`
@@ -191,7 +191,7 @@ func deploySmartContract(baseURL, contractHash, deployerDid string) (string, err
 		Comment:            "Contract deployment",
 		DeployerAddr:       deployerDid,
 		QuorumType:         2,
-		RbtAmount:          0.001,
+		RbtAmount:          deployAmt,
 		SmartContractToken: contractHash,
 	}
 
