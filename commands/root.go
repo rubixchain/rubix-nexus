@@ -12,8 +12,8 @@ var flagHomeDir string
 
 var rootCmd = &cobra.Command{
 	Use:                        "rubix-nexus",
-	Short:                      "Rubix Genome - Smart Contract Deployer and Executor",
-	Long:                       "Rubix Genome - Smart Contract Deployer and Executor",
+	Short:                      "Rubix Nexus - Smart Contract Deployer and Executor",
+	Long:                       "Rubix Nexus - Smart Contract Deployer and Executor",
 	SuggestionsMinimumDistance: 2,
 }
 
@@ -29,7 +29,7 @@ func init() {
 	var errHomeDir error
 	flagHomeDir, errHomeDir = getDefaultHomeDir()
 	if errHomeDir != nil {
-		fmt.Fprintf(os.Stderr, "unable to initialise Rubix Genome CLI, err: %v", errHomeDir)
+		fmt.Fprintf(os.Stderr, "unable to initialise Rubix Nexus CLI, err: %v", errHomeDir)
 		os.Exit(1)
 	}
 
